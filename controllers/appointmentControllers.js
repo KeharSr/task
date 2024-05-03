@@ -39,7 +39,7 @@ const bookAppointment = async (req, res) => {
      if(newAppointment){
         return res.json ({
             'status' : false,
-            'message' : 'User Already Exist!'
+            'message' : 'Booking Already Exist!'
         })
      }
     // Step 5.1.1 Stop the process
@@ -64,7 +64,7 @@ const bookAppointment = async (req, res) => {
     // Send the response
     res.json({
         'sucess' : true,
-        'message' : 'User Created Sucesfully' 
+        'message' : 'Booking Confirmed' 
     })
 
 
