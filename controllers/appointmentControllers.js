@@ -10,11 +10,11 @@ const bookAppointment = async (req, res) => {
     console.log(req.body);
 
     // Step 2. De-structure the incoming data
-    const{Date, Time, } = req.body;
+    const{date, time, } = req.body;
 
 
     // Step 3. Validation (Validate the data)(if empty, stop the process and send response)
-    if(!Date || !Time ){
+    if(!date || !time ){
         // res.send('Please fill all details')
         // res.status(400).json()
         return res.json({
@@ -24,16 +24,29 @@ const bookAppointment = async (req, res) => {
 
     }
 
-    if (Time === '15:00') {
+    if (time === '15:00') {
         return res.json({ success: false, message: 'The slot is unavailable.' });
     }
+
+    
 
 
 
     // Step 4. Error Handling (Try Catch)
     try {
     // Step 5. Check if the user is already in the database (registered)
-    const newAppointment = await appointmentModel.findOne({Date : Date, Time : Time})
+    const newAppointment = await appointmentModel.findOne({date : date, time : time})
+
+
+    if (new Date(date) <=
+            new Date()) {
+            return res.json({
+                'status': false,
+                message: 'Date must be in the future.'
+            });
+
+        }
+
    
     // Step 5.1 If user Found: Send response 
      if(newAppointment){
@@ -43,14 +56,8 @@ const bookAppointment = async (req, res) => {
         })
      }
 
-     if (new Date(eventDate) <=
-            new Date()) {
-            return res.json({
-                'status': false,
-                message: 'Date must be in the future.'
-            });
-
-        }
+     
+     
     // Step 5.1.1 Stop the process
     //Done
 
@@ -61,11 +68,12 @@ const bookAppointment = async (req, res) => {
     // Step 5.2 if user is new:
     const newappointment = new appointmentModel({
         // Database Fields : Client's Value
-        Date : Date,
-        Time : Time,
+        date : date,
+        time : time,
         
         
     })
+
 
     // Save the database
     await newappointment.save()

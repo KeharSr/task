@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const appointmentControllers = new mongoose.Schema({
 
-    Date: {
+    date: {
         type: String,
         required: true
     },
-    Time: {
+    time: {
         type: String,
         required: true
     }
