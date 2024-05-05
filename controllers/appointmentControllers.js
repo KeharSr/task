@@ -42,6 +42,15 @@ const bookAppointment = async (req, res) => {
             'message' : 'Booking Already Exist!'
         })
      }
+
+     if (new Date(eventDate) <=
+            new Date()) {
+            return res.json({
+                'status': false,
+                message: 'Date must be in the future.'
+            });
+
+        }
     // Step 5.1.1 Stop the process
     //Done
 
